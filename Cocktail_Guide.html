@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BabbaLuci — Cocktail Guide</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sour:   #1D9E75;
+    --bitter: #D85A30;
+    --sweet:  #BA7517;
+    --dry:    #534AB7;
+    --fruity: #D4537E;
+    --mixed:  #888780;
+    --bg: #F9F8F5;
+    --card-bg: #ffffff;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --border: rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0 0 3rem;
+  }
+
+  header {
+    background: #111;
+    color: #fff;
+    padding: 1.5rem 1.5rem 1.25rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+
+  .header-top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .logo { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+  .logo span { color: #c8a96e; }
+  .tagline { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+  .controls { display: flex; flex-direction: column; gap: 8px; }
+
+  .search-wrap { position: relative; }
+  .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.5; pointer-events: none; }
+  input[type="search"] {
+    width: 100%;
+    padding: 9px 14px 9px 38px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+  }
+  input[type="search"]::placeholder { color: rgba(255,255,255,0.4); }
+  input[type="search"]:focus { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.12); }
+
+  .filter-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .filter-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.35); letter-spacing: 1px; text-transform: uppercase; margin-right: 2px; flex-shrink: 0; }
+
+  .f-btn {
+    padding: 5px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid;
+    background: transparent;
+    transition: all 0.15s;
+    color: #fff;
+    letter-spacing: 0.3px;
+  }
+  .f-btn[data-cat="all"]    { border-color: rgba(255,255,255,0.3); }
+  .f-btn[data-cat="sour"]   { border-color: var(--sour);   }
+  .f-btn[data-cat="bitter"] { border-color: var(--bitter); }
+  .f-btn[data-cat="sweet"]  { border-color: var(--sweet);  }
+  .f-btn[data-cat="dry"]    { border-color: var(--dry);    }
+  .f-btn[data-cat="fruity"] { border-color: var(--fruity); }
+
+  .f-btn[data-cat="all"].active    { background: rgba(255,255,255,0.2); }
+  .f-btn[data-cat="sour"].active   { background: var(--sour);   }
+  .f-btn[data-cat="bitter"].active { background: var(--bitter); }
+  .f-btn[data-cat="sweet"].active  { background: var(--sweet);  }
+  .f-btn[data-cat="dry"].active    { background: var(--dry);    }
+  .f-btn[data-cat="fruity"].active { background: var(--fruity); }
+
+  .s-btn {
+    padding: 5px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid rgba(200,169,110,0.45);
+    background: transparent;
+    transition: all 0.15s;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.3px;
+  }
+  .s-btn.active { background: #c8a96e; border-color: #c8a96e; color: #111; }
+
+  .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 2px 0; }
+
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 8px 16px;
+    padding: 1rem 1.5rem 0;
+    font-size: 11.5px; color: var(--muted);
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  .count-bar { padding: 0.75rem 1.5rem 0; font-size: 13px; color: var(--muted); }
+  .count-bar b { color: var(--text); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    padding: 1rem 1.5rem 0;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.15s, transform 0.15s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-1px); }
+
+  .card-top { height: 5px; }
+  .card-body { padding: 12px 14px 14px; }
+
+  .card-name { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 6px; }
+
+  .taste-badge {
+    display: inline-block;
+    font-size: 10.5px; font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+  }
+
+  .spirit-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+  .spirit-tag {
+    font-size: 10px; font-weight: 600;
+    padding: 1px 7px;
+    border-radius: 8px;
+    background: #f0ede6;
+    color: #7a6a4a;
+  }
+
+  .card-ings { font-size: 11.5px; color: var(--muted); line-height: 1.55; }
+
+  .no-results { grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--muted); font-size: 14px; }
+
+  .top-sour   { background: var(--sour); }
+  .top-bitter { background: var(--bitter); }
+  .top-sweet  { background: var(--sweet); }
+  .top-dry    { background: var(--dry); }
+  .top-fruity { background: var(--fruity); }
+  .top-mixed  { background: var(--mixed); }
+
+  .badge-sour   { background: #E1F5EE; color: #0F6E56; }
+  .badge-bitter { background: #FAECE7; color: #993C1D; }
+  .badge-sweet  { background: #FAEEDA; color: #854F0B; }
+  .badge-dry    { background: #EEEDFE; color: #3C3489; }
+  .badge-fruity { background: #FBEAF0; color: #993556; }
+  .badge-mixed  { background: #F1EFE8; color: #5F5E5A; }
+
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr 1fr; gap: 8px; padding: 0.75rem 1rem 0; }
+    header { padding: 1.25rem 1rem 1rem; }
+    .legend, .count-bar { padding-left: 1rem; padding-right: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="logo">Babba<span>Luci</span></div>
+    <div class="tagline">International Cocktail Guide</div>
+  </div>
+  <div class="controls">
+    <div class="search-wrap">
+      <svg width="16" height="16" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="search" id="search" placeholder="Search cocktail or ingredient…" />
+    </div>
+
+    <div class="filter-row" id="taste-filters">
+      <span class="filter-label">Taste</span>
+      <button class="f-btn active" data-cat="all">All</button>
+      <button class="f-btn" data-cat="sour">Sour</button>
+      <button class="f-btn" data-cat="bitter">Bitter</button>
+      <button class="f-btn" data-cat="sweet">Sweet</button>
+      <button class="f-btn" data-cat="dry">Dry</button>
+      <button class="f-btn" data-cat="fruity">Fruity</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="filter-row" id="spirit-filters">
+      <span class="filter-label">Spirit</span>
+      <button class="s-btn active" data-spirit="all">All</button>
+      <button class="s-btn" data-spirit="vodka">Vodka</button>
+      <button class="s-btn" data-spirit="gin">Gin</button>
+      <button class="s-btn" data-spirit="rum">Rum</button>
+      <button class="s-btn" data-spirit="tequila">Tequila</button>
+      <button class="s-btn" data-spirit="whisky">Whisky</button>
+      <button class="s-btn" data-spirit="cognac">Cognac</button>
+      <button class="s-btn" data-spirit="campari">Campari</button>
+    </div>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--sour)"></div>Sour</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--bitter)"></div>Bitter</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--sweet)"></div>Sweet</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--dry)"></div>Dry</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--fruity)"></div>Fruity</div>
+</div>
+
+<div class="count-bar"><b id="count">73</b> cocktails</div>
+<div class="grid" id="grid"></div>
+
+<script>
+const cocktails = [
+  { name: "Black Russian", taste: "Sweet and Bitter", ing: "Kahlúa coffee liqueur, Vodka", spirits: ["vodka"] },
+  { name: "Dirty Martini", taste: "Dry · Savory · Bitter", ing: "Martini Extra Dry, Vodka or Gin, Olive, Olive Brine", spirits: ["vodka","gin"] },
+  { name: "Godfather", taste: "Sweet", ing: "Amaretto, Scotch Whisky", spirits: ["whisky"] },
+  { name: "Kir", taste: "Balanced Sweet and Acidic", ing: "Crème de Cassis, White wine", spirits: [] },
+  { name: "Kir Royale", taste: "Sweet · Bubbly · Acidic", ing: "Crème de Cassis, Prosecco", spirits: [] },
+  { name: "Rusty Nail", taste: "Sweet and Spicy", ing: "Drambuie, Scotch Whisky", spirits: ["whisky"] },
+  { name: "White Russian", taste: "Sweet and Bitter", ing: "Kahlúa, Fresh cream, Vodka", spirits: ["vodka"] },
+  { name: "Vesper Martini", taste: "Sweet · Bitter · Dry", ing: "Gin, Vodka, Lillet Blanc", spirits: ["gin","vodka"] },
+  { name: "Aperol Spritz", taste: "Bitter · Hint of Sweet", ing: "Prosecco, Aperol, Soda water, Orange", spirits: [] },
+  { name: "Boulevardier", taste: "Bitter", ing: "Campari, Martini Rosso, Bourbon Whiskey", spirits: ["campari","whisky"] },
+  { name: "Manhattan", taste: "Bitter", ing: "Sweet Vermouth, Bourbon or Rye, Angostura Orange & Aromatic Bitters", spirits: ["whisky"] },
+  { name: "Mint Julep", taste: "Refreshing · Earthy · Sweet", ing: "Fresh mint, Brown sugar, Aromatic bitters, Bourbon", spirits: ["whisky"] },
+  { name: "Negroni", taste: "Bitter", ing: "Martini Rosso, Campari, Gin", spirits: ["gin","campari"] },
+  { name: "Negroni Sbagliato", taste: "Bitter and Dry", ing: "Campari, Martini Rosso, Prosecco", spirits: ["campari"] },
+  { name: "Old Fashioned", taste: "Sweet · Bitter", ing: "Aromatic & Orange Bitters, Bourbon or Rye, Brown sugar", spirits: ["whisky"] },
+  { name: "Sazerac", taste: "Sweet · Bitter", ing: "Bourbon or Rye, Hennessy VS, Absinthe, Angostura & Peychaud Bitters", spirits: ["whisky","cognac"] },
+  { name: "Vieux Carré", taste: "Sweet · Bitter", ing: "Martini Rosso, Bourbon or Rye, Cognac, Peychaud & Aromatic Bitters", spirits: ["whisky","cognac"] },
+  { name: "Blood and Sand", taste: "Fruity · Bitter · Sour", ing: "Sweet Vermouth, Orange juice, Cherry Heering, Scotch", spirits: ["whisky"] },
+  { name: "Americano", taste: "Bitter · Bubbly", ing: "Campari, Martini Rosso, Club soda, Orange", spirits: ["campari"] },
+  { name: "Garibaldi", taste: "Bitter · Orangey", ing: "Campari, Fresh orange juice", spirits: ["campari"] },
+  { name: "Campari Spritz", taste: "Bitter · Acidic · Bubbly", ing: "Campari, Prosecco, Soda water", spirits: ["campari"] },
+  { name: "Bicycle Thief", taste: "Bitter · Dry · Bubbly", ing: "Campari, Dry Vermouth, Soda water", spirits: ["campari"] },
+  { name: "Rosita", taste: "Bitter · Sweet", ing: "Tequila Reposado, Campari, Sweet Vermouth, Dry Vermouth, Aromatic Bitters", spirits: ["tequila","campari"] },
+  { name: "Amaretto Sour", taste: "Sweet and Sour", ing: "Simple syrup, Amaretto Disaronno, Fresh lime juice", spirits: [] },
+  { name: "Apple Martini", taste: "Sweet and Acidic", ing: "Vanilla vodka, Apple juice, Sour Apple liqueur, Fresh apple", spirits: ["vodka"] },
+  { name: "Bloody Mary", taste: "Tangy · Acidic · Savory", ing: "Vodka, Tomato juice, Lemon, Worcestershire, Tabasco, Salt, Pepper", spirits: ["vodka"] },
+  { name: "Bull Frog", taste: "Sour", ing: "Vodka, Gin, Rum, Tequila, Triple Sec, Blue Curaçao, Lemon, Energy drink", spirits: ["vodka","gin","rum","tequila"] },
+  { name: "Caipirinha", taste: "Sour", ing: "Cachaça, Brown sugar, Fresh lime", spirits: ["rum"] },
+  { name: "Cosmopolitan", taste: "Fruity and Sour", ing: "Triple Sec, Cranberry juice, Citron vodka, Lemon juice", spirits: ["vodka"] },
+  { name: "Cuban Mojito", taste: "Earthy · Fresh · Sour", ing: "White rum, Soda water, Brown sugar, Lime, Fresh mint", spirits: ["rum"] },
+  { name: "Daiquiri", taste: "Sour", ing: "White rum, Simple syrup, Fresh lime juice", spirits: ["rum"] },
+  { name: "Dry Martini", taste: "Dry and Botanical", ing: "Vodka or Gin, Lemon peel, Martini Extra Dry", spirits: ["vodka","gin"] },
+  { name: "Fruit Margarita", taste: "Sour and Fruity", ing: "Triple Sec, Tequila Blanco, Lemon juice, Flavor of choice", spirits: ["tequila"] },
+  { name: "Gin Basil", taste: "Sour and Fresh", ing: "Gin, Fresh basil, Simple syrup, Lemon juice", spirits: ["gin"] },
+  { name: "Gin Gimlet", taste: "Sour", ing: "Gin, Simple syrup, Fresh lime juice", spirits: ["gin"] },
+  { name: "Gin Fizz", taste: "Sour and Bubbly", ing: "Gin, Soda water, Simple syrup, Lemon juice", spirits: ["gin"] },
+  { name: "Last Word", taste: "Sour and Botanical", ing: "Gin, Chartreuse Verte, Maraschino, Lemon juice", spirits: ["gin"] },
+  { name: "London Mule", taste: "Sour", ing: "Gin, Ginger beer, Lemon juice, Aromatic bitters", spirits: ["gin"] },
+  { name: "Long Island Iced Tea", taste: "Sour", ing: "Vodka, Gin, Rum, Tequila, Triple Sec, Lemon juice, Pepsi", spirits: ["vodka","gin","rum","tequila"] },
+  { name: "Mai Tai", taste: "Nutty and Sour", ing: "Dark rum, White rum, Triple Sec, Orgeat syrup, Lime juice", spirits: ["rum"] },
+  { name: "Margarita", taste: "Sour", ing: "Tequila Blanco, Triple Sec, Lime juice, Salt", spirits: ["tequila"] },
+  { name: "Midori Sour", taste: "Sweet and Sour", ing: "Midori liqueur, Simple syrup, Lemon juice", spirits: [] },
+  { name: "Moscow Mule", taste: "Sour", ing: "Vodka, Ginger beer, Fresh lime juice, Lime wedge", spirits: ["vodka"] },
+  { name: "Singapore Sling", taste: "Sweet · Sour · Bitter", ing: "Gin, Cherry Heering, Bénédictine, Triple Sec, Pineapple, Grenadine, Bitters, Lemon", spirits: ["gin"] },
+  { name: "Tequila Sour", taste: "Sour", ing: "Tequila Reposado, Lemon juice, Simple syrup, Aromatic & Orange Bitters", spirits: ["tequila"] },
+  { name: "Tommy's Margarita", taste: "Sour", ing: "Don Julio Reposado Tequila, Agave syrup, Fresh lime juice", spirits: ["tequila"] },
+  { name: "Vodka Sour", taste: "Sour", ing: "Vodka, Lemon juice, Simple syrup, Aromatic & Orange Bitters", spirits: ["vodka"] },
+  { name: "Whisky Sour", taste: "Sour", ing: "Bourbon or Rye, Lemon juice, Simple syrup, Aromatic & Orange Bitters", spirits: ["whisky"] },
+  { name: "French 75", taste: "Sour · Bubbly", ing: "Gin, Prosecco, Lemon juice, Simple syrup", spirits: ["gin"] },
+  { name: "Blue Lagoon", taste: "Sour", ing: "Vodka, Blue Curaçao, Pineapple juice, Simple syrup, Lemon juice", spirits: ["vodka"] },
+  { name: "Piña Colada", taste: "Fruity · Sour", ing: "White rum, Fresh pineapple, Lemon juice, Coconut milk or syrup", spirits: ["rum"] },
+  { name: "El Diablo", taste: "Sour", ing: "Tequila Reposado, Crème de Cassis, Lime juice, Ginger beer", spirits: ["tequila"] },
+  { name: "Tom Collins", taste: "Sour", ing: "Old Tom Gin, Lemon juice, Simple syrup, Soda", spirits: ["gin"] },
+  { name: "Sidecar", taste: "Sour", ing: "Hennessy VS, Triple Sec, Lemon juice, Simple syrup", spirits: ["cognac"] },
+  { name: "Bramble", taste: "Fruity · Sour", ing: "Gin, Lemon juice, Simple syrup, Crème de Mûres", spirits: ["gin"] },
+  { name: "Pisco Sour", taste: "Sour", ing: "Pisco, Lemon juice, Simple syrup, Egg white", spirits: [] },
+  { name: "Paloma", taste: "Bitter · Sour", ing: "Tequila Blanco, Lime juice, Grapefruit soda, Salt", spirits: ["tequila"] },
+  { name: "Dark and Stormy", taste: "Sour", ing: "Dark rum, Ginger beer, Aromatic bitters, Lime juice", spirits: ["rum"] },
+  { name: "Lychee Martini", taste: "Sweet", ing: "Lychee liqueur, Vodka, Triple Sec, Lemon juice", spirits: ["vodka"] },
+  { name: "Penicillin", taste: "Smoky · Sour · Spiced", ing: "Bourbon, Lemon juice, Ginger-honey syrup, Peated whisky float", spirits: ["whisky"] },
+  { name: "Bee's Knees", taste: "Sweet · Sour", ing: "Gin, Lemon juice, Honey syrup, Triple Sec", spirits: ["gin"] },
+  { name: "Clover Club", taste: "Fruity · Sour", ing: "Gin, Lemon juice, Raspberry syrup, Egg white", spirits: ["gin"] },
+  { name: "New York Sour", taste: "Sour · Slightly Dry", ing: "Bourbon, Lemon juice, Simple syrup, Aromatic & Orange Bitters", spirits: ["whisky"] },
+  { name: "Paper Plane", taste: "Bitter", ing: "Bourbon, Aperol, Lemon juice, Amaro Montenegro", spirits: ["whisky"] },
+  { name: "Between the Sheets", taste: "Sour", ing: "White rum, Cointreau, Lemon juice, Cognac VS", spirits: ["rum","cognac"] },
+  { name: "Bellini", taste: "Sweet · Acidic · Bubbly", ing: "Fruit purée, Prosecco", spirits: [] },
+  { name: "Espresso Martini", taste: "Bitter · Sweet", ing: "Kahlúa, Espresso, Vodka, Simple syrup", spirits: ["vodka"] },
+  { name: "Tequila Sunrise", taste: "Sweet · Sour", ing: "Tequila Reposado, Orange juice, Grenadine", spirits: ["tequila"] },
+  { name: "Irish Coffee", taste: "Spiced · Sweet · Bitter", ing: "Jameson Irish Whiskey, Brewed coffee, Heavy cream, Spiced simple syrup", spirits: ["whisky"] },
+  { name: "Salty Dog", taste: "Sour · Salty · Bitter", ing: "Vodka or Gin, Grapefruit juice, Salt rim", spirits: ["vodka","gin"] },
+  { name: "Porn Star Martini", taste: "Sweet · Sour · Acidic", ing: "Vanilla vodka, Passionfruit juice, Passionfruit syrup, Prosecco", spirits: ["vodka"] },
+  { name: "Harvey Wallbanger", taste: "Sweet · Sour", ing: "Vodka, Orange juice, Galliano", spirits: ["vodka"] },
+];
+
+const spiritLabels = { vodka:"Vodka", gin:"Gin", rum:"Rum", tequila:"Tequila", whisky:"Whisky", cognac:"Cognac", campari:"Campari" };
+
+function cat(taste) {
+  const t = taste.toLowerCase();
+  if (t.includes('dry') && !t.includes('sour')) return 'dry';
+  if (t.includes('fruity')) return 'fruity';
+  if (t.includes('bitter')) return 'bitter';
+  if (t.includes('sour') || t.includes('acidic')) return 'sour';
+  if (t.includes('sweet') || t.includes('spiced') || t.includes('smoky')) return 'sweet';
+  return 'mixed';
+}
+
+let activeTaste = 'all', activeSpirit = 'all', search = '';
+
+function render() {
+  const list = cocktails.filter(c => {
+    const matchTaste = activeTaste === 'all' || cat(c.taste) === activeTaste;
+    const matchSpirit = activeSpirit === 'all' || c.spirits.includes(activeSpirit);
+    const q = search.toLowerCase();
+    const matchQ = !q || c.name.toLowerCase().includes(q) || c.ing.toLowerCase().includes(q);
+    return matchTaste && matchSpirit && matchQ;
+  });
+
+  document.getElementById('count').textContent = list.length;
+  const grid = document.getElementById('grid');
+
+  if (!list.length) {
+    grid.innerHTML = '<div class="no-results">No cocktails match your filters.</div>';
+    return;
+  }
+
+  grid.innerHTML = list.map(c => {
+    const k = cat(c.taste);
+    const spiritTagsHtml = c.spirits.length
+      ? `<div class="spirit-tags">${c.spirits.map(s => `<span class="spirit-tag">${spiritLabels[s]}</span>`).join('')}</div>`
+      : '';
+    return `<div class="card">
+      <div class="card-top top-${k}"></div>
+      <div class="card-body">
+        <div class="card-name">${c.name}</div>
+        <div class="taste-badge badge-${k}">${c.taste}</div>
+        ${spiritTagsHtml}
+        <div class="card-ings">${c.ing}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('taste-filters').addEventListener('click', e => {
+  const btn = e.target.closest('.f-btn');
+  if (!btn) return;
+  activeTaste = btn.dataset.cat;
+  document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+});
+
+document.getElementById('spirit-filters').addEventListener('click', e => {
+  const btn = e.target.closest('.s-btn');
+  if (!btn) return;
+  activeSpirit = btn.dataset.spirit;
+  document.querySelectorAll('.s-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+});
+
+document.getElementById('search').addEventListener('input', e => {
+  search = e.target.value;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
