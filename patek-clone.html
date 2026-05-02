@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Patek Philippe — Official Site | Luxury Watches</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+
+:root{
+  --navy:#1a2744;
+  --navy-deep:#0f1a35;
+  --gold:#b8965a;
+  --gold-light:#d4b07a;
+  --white:#ffffff;
+  --off-white:#f8f7f4;
+  --light-gray:#f2f0ec;
+  --border:#e0dcd4;
+  --text:#1a1a1a;
+  --muted:#6b6560;
+  --nav-height:80px;
+}
+
+body{
+  font-family:'Lato',sans-serif;
+  background:var(--white);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* ── TOP BAR ── */
+.top-bar{
+  background:var(--navy-deep);
+  padding:0.45rem 2.5rem;
+  display:flex;justify-content:flex-end;align-items:center;gap:1.5rem;
+}
+.top-bar a{
+  font-family:'Lato',sans-serif;font-size:0.68rem;letter-spacing:0.1em;
+  color:rgba(255,255,255,0.6);text-decoration:none;text-transform:uppercase;
+  transition:color 0.2s;
+}
+.top-bar a:hover{color:var(--gold-light);}
+.top-bar-sep{color:rgba(255,255,255,0.2);}
+
+/* ── MAIN NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+  transition:top 0.3s ease;
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:var(--nav-height);
+  max-width:1600px;margin:0 auto;
+}
+.nav-logo{
+  font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;
+  letter-spacing:0.3em;color:var(--navy);text-decoration:none;
+  text-transform:uppercase;white-space:nowrap;
+}
+.nav-logo span{display:block;font-size:0.45rem;letter-spacing:0.6em;color:var(--muted);margin-top:3px;text-align:center;}
+
+.nav-menu{display:flex;align-items:center;gap:0;list-style:none;}
+.nav-item{position:relative;}
+.nav-link{
+  display:block;padding:0 1.35rem;height:var(--nav-height);line-height:var(--nav-height);
+  font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--navy);text-decoration:none;
+  transition:color 0.2s;white-space:nowrap;
+  position:relative;
+}
+.nav-link::after{
+  content:'';position:absolute;bottom:0;left:1.35rem;right:1.35rem;height:2px;
+  background:var(--gold);transform:scaleX(0);transition:transform 0.25s ease;
+}
+.nav-item:hover .nav-link{color:var(--gold);}
+.nav-item:hover .nav-link::after{transform:scaleX(1);}
+
+/* MEGA DROPDOWN */
+.dropdown{
+  position:absolute;top:var(--nav-height);left:50%;transform:translateX(-50%);
+  background:var(--white);border:1px solid var(--border);border-top:2px solid var(--gold);
+  min-width:200px;padding:1.5rem 0;
+  opacity:0;visibility:hidden;transition:opacity 0.25s,visibility 0.25s;
+  box-shadow:0 8px 30px rgba(0,0,0,0.08);
+}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;}
+.dropdown a{
+  display:block;padding:0.55rem 1.8rem;
+  font-size:0.75rem;letter-spacing:0.06em;color:var(--navy);text-decoration:none;
+  transition:color 0.2s,padding-left 0.2s;white-space:nowrap;
+}
+.dropdown a:hover{color:var(--gold);padding-left:2.2rem;}
+
+.nav-search{
+  background:none;border:none;cursor:pointer;padding:0.5rem;
+  color:var(--navy);font-size:1.1rem;transition:color 0.2s;margin-left:0.5rem;
+}
+.nav-search:hover{color:var(--gold);}
+
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--navy);transition:transform 0.3s,opacity 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+/* MOBILE MENU */
+.mobile-overlay{
+  position:fixed;inset:0;top:var(--nav-height);background:var(--white);
+  z-index:850;overflow-y:auto;opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s;
+}
+.mobile-overlay.open{opacity:1;visibility:visible;}
+.mobile-nav-list{list-style:none;padding:2rem;}
+.mobile-nav-list>li{border-bottom:1px solid var(--border);}
+.mobile-nav-list>li>a,.mobile-nav-list>li>span{
+  display:block;padding:1rem 0;
+  font-family:'Lato',sans-serif;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--navy);text-decoration:none;font-weight:400;
+}
+.mobile-sub{padding:0 0 1rem 1rem;}
+.mobile-sub a{display:block;padding:0.4rem 0;font-size:0.78rem;color:var(--muted);text-decoration:none;}
+
+/* ── HERO / SLIDER ── */
+#hero{
+  margin-top:var(--nav-height);
+  position:relative;width:100%;height:calc(100vh - var(--nav-height));
+  overflow:hidden;background:var(--navy-deep);
+}
+.slide{
+  position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;
+  display:flex;align-items:flex-end;
+}
+.slide.active{opacity:1;}
+.slide-bg{
+  position:absolute;inset:0;background-size:cover;background-position:center;
+  transition:transform 8s ease;
+}
+.slide.active .slide-bg{transform:scale(1.04);}
+.slide-bg-1{
+  background:
+    linear-gradient(to right, rgba(15,26,53,0.75) 40%, rgba(15,26,53,0.2) 100%),
+    linear-gradient(160deg, #1a2744, #2a3f6e 40%, #0f1a35);
+}
+.slide-bg-2{
+  background:
+    linear-gradient(to right, rgba(15,26,53,0.7) 40%, rgba(15,26,53,0.15) 100%),
+    linear-gradient(160deg, #0f1a35, #1e3055 40%, #2a4070);
+}
+.slide-bg-3{
+  background:
+    linear-gradient(to right, rgba(15,26,53,0.75) 40%, rgba(15,26,53,0.2) 100%),
+    linear-gradient(160deg, #1a2744, #0f1a35 60%, #1a2744);
+}
+/* Decorative watch silhouettes */
+.slide-watch{
+  position:absolute;right:10%;top:50%;transform:translateY(-50%);
+  opacity:0.12;
+}
+.slide-watch svg{width:480px;height:480px;}
+
+.slide-content{
+  position:relative;z-index:10;padding:0 8% 8% 8%;max-width:700px;
+}
+.slide-eyebrow{
+  font-family:'Lato',sans-serif;font-size:0.65rem;letter-spacing:0.45em;
+  text-transform:uppercase;color:var(--gold-light);margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.slide-eyebrow::before{content:'';display:block;width:30px;height:1px;background:var(--gold);}
+.slide-title{
+  font-family:'EB Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;
+  line-height:1.1;color:var(--white);margin-bottom:1.2rem;
+}
+.slide-title em{font-style:italic;color:var(--gold-light);}
+.slide-body{
+  font-size:1rem;color:rgba(255,255,255,0.7);line-height:1.7;
+  max-width:480px;margin-bottom:2rem;
+}
+.slide-btn{
+  display:inline-block;font-family:'Lato',sans-serif;font-size:0.68rem;
+  letter-spacing:0.22em;text-transform:uppercase;color:var(--white);
+  border:1px solid rgba(255,255,255,0.5);padding:0.9rem 2rem;
+  text-decoration:none;transition:border-color 0.3s,color 0.3s,background 0.3s;
+}
+.slide-btn:hover{border-color:var(--gold);color:var(--gold);}
+.slide-btn.gold{background:var(--gold);border-color:var(--gold);color:var(--navy-deep);}
+.slide-btn.gold:hover{background:var(--gold-light);border-color:var(--gold-light);}
+
+/* slider dots */
+.slider-dots{
+  position:absolute;bottom:3rem;right:8%;display:flex;gap:0.6rem;z-index:20;
+}
+.dot{
+  width:28px;height:2px;background:rgba(255,255,255,0.3);cursor:pointer;
+  transition:background 0.3s,width 0.3s;border:none;padding:0;
+}
+.dot.active{background:var(--gold);width:42px;}
+
+/* slider arrows */
+.slider-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:20;
+  background:none;border:1px solid rgba(255,255,255,0.25);
+  color:var(--white);width:44px;height:44px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+  transition:border-color 0.3s,color 0.3s;
+}
+.slider-arrow:hover{border-color:var(--gold);color:var(--gold);}
+.slider-arrow.prev{left:3%;}
+.slider-arrow.next{right:3%;}
+
+/* ── CONTENT SECTIONS ── */
+.section-pad{padding:5rem 8%;}
+.section-pad-sm{padding:3.5rem 8%;}
+
+/* headline strip */
+.headline-strip{
+  background:var(--off-white);padding:2rem 8%;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.strip-label{font-family:'Lato',sans-serif;font-size:0.62rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--muted);}
+.strip-title{font-family:'EB Garamond',serif;font-size:1.9rem;font-weight:400;color:var(--navy);}
+.strip-link{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;white-space:nowrap;border-bottom:1px solid var(--gold);padding-bottom:2px;transition:color 0.2s;}
+.strip-link:hover{color:var(--navy);}
+
+/* two-col editorial */
+.editorial{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;}
+.editorial-img{background-size:cover;background-position:center;min-height:520px;}
+.editorial-img-1{background:linear-gradient(135deg,#1a2744,#2d4070 50%,#1a2744);}
+.editorial-img-2{background:linear-gradient(135deg,#2a3555,#1a2744 50%,#0f1a35);}
+.editorial-img-3{background:linear-gradient(135deg,#0f1a35,#1e3060 60%,#1a2744);}
+.editorial-content{
+  padding:5rem 5%;display:flex;flex-direction:column;justify-content:center;
+  background:var(--off-white);
+}
+.editorial.reverse .editorial-content{order:-1;background:var(--white);}
+.editorial.dark .editorial-content{background:var(--navy);color:var(--white);}
+.editorial.dark .edit-eyebrow{color:var(--gold-light);}
+.editorial.dark .edit-title{color:var(--white);}
+.editorial.dark .edit-body{color:rgba(255,255,255,0.65);}
+.editorial.dark .edit-link{color:var(--gold-light);border-bottom-color:var(--gold-light);}
+
+.edit-eyebrow{font-size:0.6rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.edit-title{font-family:'EB Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;line-height:1.2;color:var(--navy);margin-bottom:1.2rem;}
+.edit-title em{font-style:italic;}
+.edit-body{font-size:0.92rem;line-height:1.85;color:var(--muted);margin-bottom:2rem;}
+.edit-link{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:2px;transition:color 0.2s;}
+.edit-link:hover{color:var(--navy);}
+
+/* image grid watch-face ornament */
+.watch-ornament{
+  width:280px;height:280px;border-radius:50%;
+  border:1px solid rgba(184,150,90,0.3);
+  margin:2rem auto;display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.watch-ornament::before{content:'';position:absolute;inset:14px;border-radius:50%;border:1px dashed rgba(184,150,90,0.15);}
+.watch-ornament-inner{
+  width:72%;height:72%;border-radius:50%;
+  background:radial-gradient(ellipse at 35% 35%, rgba(42,55,85,0.5),rgba(15,26,53,0.9));
+  border:1px solid rgba(184,150,90,0.2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+}
+.watch-ornament-inner span{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.3em;color:rgba(184,150,90,0.8);text-transform:uppercase;}
+
+/* COLLECTIONS GRID */
+.collections-section{padding:5rem 5%;background:var(--white);}
+.collections-header{text-align:center;margin-bottom:3.5rem;}
+.section-eyebrow{font-size:0.6rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.8rem;}
+.section-title{font-family:'EB Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:400;color:var(--navy);}
+.section-title em{font-style:italic;}
+
+.coll-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.coll-card{
+  background:var(--white);padding:2.5rem 1.8rem;text-align:center;
+  cursor:pointer;transition:background 0.3s;position:relative;overflow:hidden;
+}
+.coll-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--gold);transform:scaleX(0);transition:transform 0.3s;
+}
+.coll-card:hover{background:var(--off-white);}
+.coll-card:hover::after{transform:scaleX(1);}
+.coll-watch{
+  width:130px;height:130px;border-radius:50%;
+  border:1px solid var(--border);margin:0 auto 1.5rem;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 35% 35%,#2a3760,#0f1a35);
+  transition:transform 0.4s;position:relative;
+}
+.coll-card:hover .coll-watch{transform:scale(1.05);}
+.coll-watch-ring{
+  width:78%;height:78%;border-radius:50%;
+  border:1px solid rgba(184,150,90,0.25);
+  display:flex;align-items:center;justify-content:center;
+}
+.coll-name{font-family:'EB Garamond',serif;font-size:1.15rem;color:var(--navy);margin-bottom:0.4rem;}
+.coll-sub{font-size:0.72rem;color:var(--muted);letter-spacing:0.05em;}
+.coll-ref{font-size:0.65rem;color:var(--gold);margin-top:0.8rem;letter-spacing:0.1em;}
+
+/* MANUFACTURE GRID */
+.manuf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);}
+.manuf-card{
+  background:var(--white);padding:3rem 2.5rem;
+  border-bottom:1px solid var(--border);transition:background 0.3s;
+}
+.manuf-card:hover{background:var(--off-white);}
+.manuf-icon{font-size:1.8rem;margin-bottom:1.2rem;color:var(--gold);}
+.manuf-label{font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem;}
+.manuf-title{font-family:'EB Garamond',serif;font-size:1.4rem;color:var(--navy);margin-bottom:0.8rem;}
+.manuf-body{font-size:0.87rem;line-height:1.75;color:var(--muted);margin-bottom:1.2rem;}
+.manuf-link{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:2px;}
+.manuf-link:hover{color:var(--navy);}
+
+/* SERVICE STRIP */
+.service-strip{
+  background:var(--navy);padding:5rem 8%;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:4rem;
+}
+.srv-item{}
+.srv-num{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.5em;color:var(--gold);display:block;margin-bottom:0.8rem;}
+.srv-title{font-family:'EB Garamond',serif;font-size:1.3rem;color:var(--white);margin-bottom:0.8rem;}
+.srv-body{font-size:0.85rem;line-height:1.75;color:rgba(255,255,255,0.55);margin-bottom:1.2rem;}
+.srv-link{font-size:0.63rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-light);text-decoration:none;border-bottom:1px solid rgba(184,150,90,0.4);padding-bottom:2px;}
+.srv-link:hover{color:var(--white);}
+
+/* POINTS OF SALE */
+.pos-section{padding:5rem 8%;background:var(--off-white);}
+.pos-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;}
+.pos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.pos-card{
+  background:var(--white);border:1px solid var(--border);padding:2rem;
+  transition:border-color 0.3s,box-shadow 0.3s;cursor:pointer;
+}
+.pos-card:hover{border-color:var(--gold);box-shadow:0 4px 20px rgba(0,0,0,0.06);}
+.pos-city{font-family:'EB Garamond',serif;font-size:1.2rem;color:var(--navy);margin-bottom:0.3rem;}
+.pos-country{font-size:0.75rem;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase;margin-bottom:1rem;}
+.pos-type{
+  display:inline-block;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
+  padding:0.3rem 0.7rem;border:1px solid var(--border);color:var(--muted);
+}
+.pos-flagship{border-color:var(--gold);color:var(--gold);}
+
+/* ── APPOINTMENTS ── */
+#appointments{padding:6rem 8%;background:var(--white);}
+.appt-header{text-align:center;max-width:620px;margin:0 auto 4rem;}
+.appt-header .section-title{margin-bottom:1rem;}
+.appt-header p{font-size:0.95rem;color:var(--muted);line-height:1.8;}
+.appt-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:start;}
+.appt-left h3{font-family:'EB Garamond',serif;font-size:1.4rem;color:var(--navy);margin-bottom:1.5rem;}
+.appt-left p{font-size:0.88rem;line-height:1.8;color:var(--muted);margin-bottom:2rem;}
+.appt-contact-list{list-style:none;}
+.appt-contact-list li{
+  padding:1rem 0;border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.appt-contact-list li:last-child{border-bottom:none;}
+.contact-city{font-family:'EB Garamond',serif;font-size:1rem;color:var(--navy);}
+.contact-type{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);}
+.contact-flagship{color:var(--gold);}
+
+/* FORM */
+.appt-form-wrap{border:1px solid var(--border);padding:3rem;}
+.form-section-title{
+  font-family:'EB Garamond',serif;font-size:1.5rem;color:var(--navy);
+  margin-bottom:2rem;text-align:center;
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;}
+.form-group{display:flex;flex-direction:column;gap:0.45rem;margin-bottom:1.2rem;}
+.form-group label{
+  font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--muted);font-family:'Lato',sans-serif;
+}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  border:1px solid var(--border);border-radius:0;padding:0.8rem 1rem;
+  font-family:'EB Garamond',serif;font-size:1rem;color:var(--text);
+  background:var(--white);outline:none;width:100%;appearance:none;
+  transition:border-color 0.25s,box-shadow 0.25s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:var(--navy);box-shadow:0 0 0 2px rgba(26,39,68,0.08);
+}
+.form-group textarea{resize:vertical;min-height:90px;}
+.form-group select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%236b6560'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;
+}
+.form-checkbox{display:flex;align-items:flex-start;gap:0.8rem;margin-bottom:1.5rem;}
+.form-checkbox input{width:16px;height:16px;margin-top:2px;cursor:pointer;accent-color:var(--navy);}
+.form-checkbox label{font-size:0.8rem;color:var(--muted);line-height:1.5;}
+.form-submit-btn{
+  width:100%;padding:1rem;background:var(--navy);color:var(--white);
+  border:none;font-family:'Lato',sans-serif;font-size:0.68rem;letter-spacing:0.3em;
+  text-transform:uppercase;cursor:pointer;transition:background 0.3s;
+}
+.form-submit-btn:hover{background:var(--navy-deep);}
+.form-note{text-align:center;font-size:0.78rem;color:var(--muted);margin-top:1rem;font-style:italic;}
+/* success */
+.form-success{display:none;text-align:center;padding:3rem 2rem;}
+.success-check{
+  width:56px;height:56px;border:1px solid var(--gold);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;
+  font-size:1.4rem;color:var(--gold);
+}
+.success-title{font-family:'EB Garamond',serif;font-size:1.5rem;color:var(--navy);margin-bottom:0.8rem;}
+.success-body{font-size:0.9rem;color:var(--muted);line-height:1.7;}
+
+/* FOOTER */
+footer{background:var(--navy-deep);color:var(--white);}
+.footer-main{
+  padding:5rem 8%;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:3rem;
+}
+.footer-brand-name{
+  font-family:'Cinzel',serif;font-size:1rem;letter-spacing:0.35em;
+  color:var(--white);margin-bottom:0.5rem;
+}
+.footer-brand-tagline{font-size:0.65rem;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;}
+.footer-brand-desc{font-size:0.82rem;line-height:1.8;color:rgba(255,255,255,0.4);max-width:250px;}
+.footer-col-title{font-size:0.6rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.65rem;}
+.footer-col a{font-size:0.8rem;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;}
+.footer-col a:hover{color:var(--gold-light);}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding:1.8rem 8%;display:flex;justify-content:space-between;align-items:center;
+}
+.footer-copy{font-size:0.72rem;color:rgba(255,255,255,0.3);}
+.footer-legal{display:flex;gap:2rem;}
+.footer-legal a{font-size:0.72rem;color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.2s;}
+.footer-legal a:hover{color:var(--gold-light);}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:0.1s;}
+.reveal-d2{transition-delay:0.2s;}
+.reveal-d3{transition-delay:0.32s;}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .footer-main{grid-template-columns:1fr 1fr;gap:2.5rem;}
+  .coll-grid{grid-template-columns:repeat(2,1fr);}
+  .editorial{grid-template-columns:1fr;}
+  .editorial-img{min-height:320px;}
+  .editorial.reverse .editorial-content{order:0;}
+  .service-strip{grid-template-columns:1fr;}
+  .pos-grid{grid-template-columns:repeat(2,1fr);}
+  .appt-layout{grid-template-columns:1fr;}
+  .manuf-grid{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  :root{--nav-height:64px;}
+  .nav-menu{display:none;}
+  .hamburger{display:flex;}
+  .top-bar{display:none;}
+  .nav-inner{padding:0 1.5rem;}
+  .section-pad,.section-pad-sm{padding:3.5rem 5%;}
+  .collections-section,.service-strip,.pos-section,#appointments{padding:3.5rem 5%;}
+  .coll-grid{grid-template-columns:1fr 1fr;}
+  .pos-grid{grid-template-columns:1fr;}
+  .footer-main{grid-template-columns:1fr;padding:3rem 5%;}
+  .footer-bottom{flex-direction:column;gap:1rem;text-align:center;padding:1.5rem 5%;}
+  .form-row{grid-template-columns:1fr;}
+  .slide-content{padding:0 5% 5rem 5%;}
+  .appt-form-wrap{padding:2rem 1.5rem;}
+  .headline-strip{flex-direction:column;align-items:flex-start;gap:1rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div style="background:var(--navy-deep);padding:0.45rem 2.5rem;display:flex;justify-content:flex-end;align-items:center;gap:1.5rem;">
+  <a href="#" style="font-size:0.65rem;letter-spacing:0.12em;color:rgba(255,255,255,0.55);text-decoration:none;text-transform:uppercase;transition:color 0.2s;">EN</a>
+  <span style="color:rgba(255,255,255,0.2);">|</span>
+  <a href="#" style="font-size:0.65rem;letter-spacing:0.12em;color:rgba(255,255,255,0.55);text-decoration:none;text-transform:uppercase;">FR</a>
+  <span style="color:rgba(255,255,255,0.2);">|</span>
+  <a href="#" style="font-size:0.65rem;letter-spacing:0.12em;color:rgba(255,255,255,0.55);text-decoration:none;text-transform:uppercase;">DE</a>
+  <span style="color:rgba(255,255,255,0.2);margin:0 0.3rem;">|</span>
+  <a href="#appointments" style="font-size:0.65rem;letter-spacing:0.12em;color:var(--gold-light);text-decoration:none;text-transform:uppercase;">Book Appointment</a>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul class="mobile-nav-list">
+    <li>
+      <span style="cursor:pointer">Manufacture</span>
+      <div class="mobile-sub">
+        <a href="#">Our Values</a><a href="#">The Founders</a>
+        <a href="#">Advanced Research</a><a href="#">Rare Handcrafts</a>
+      </div>
+    </li>
+    <li>
+      <span style="cursor:pointer">Collection</span>
+      <div class="mobile-sub">
+        <a href="#">Grand Complications</a><a href="#">Calatrava</a>
+        <a href="#">Nautilus</a><a href="#">Aquanaut</a>
+        <a href="#">Twenty~4</a><a href="#">Gondolo</a>
+      </div>
+    </li>
+    <li><a href="#">Service</a></li>
+    <li><a href="#">Museum</a></li>
+    <li><a href="#">Points of Sale</a></li>
+    <li><a href="#appointments" onclick="document.getElementById('mobileOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')">Appointments</a></li>
+  </ul>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Patek Philippe<span>Genève · Est. 1839</span></a>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="#" class="nav-link">Manufacture</a>
+        <div class="dropdown">
+          <a href="#">Our Values</a>
+          <a href="#">The Founders</a>
+          <a href="#">The Stern Family</a>
+          <a href="#">Advanced Research</a>
+          <a href="#">Rare Handcrafts</a>
+          <a href="#">The Museum</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Collection</a>
+        <div class="dropdown">
+          <a href="#">Grand Complications</a>
+          <a href="#">Complications</a>
+          <a href="#">Calatrava</a>
+          <a href="#">Gondolo</a>
+          <a href="#">Golden Ellipse</a>
+          <a href="#">Cubitus</a>
+          <a href="#">Nautilus</a>
+          <a href="#">Aquanaut</a>
+          <a href="#">Twenty~4</a>
+          <a href="#">Pocket Watches</a>
+          <a href="#">Rare Handcrafts</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Service</a>
+        <div class="dropdown">
+          <a href="#">Our Commitment</a>
+          <a href="#">Taking Care of Your Watch</a>
+          <a href="#">Service Centers</a>
+          <a href="#">Register Your Watch</a>
+          <a href="#">Archives Extract</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Museum</a>
+        <div class="dropdown">
+          <a href="#">The Patek Philippe Museum</a>
+          <a href="#">Plan Your Visit</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Points of Sale</a>
+        <div class="dropdown">
+          <a href="#">Salons &amp; Maisons</a>
+          <a href="#">Boutiques &amp; Retailers</a>
+          <a href="#">Find a Store</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="#appointments" class="nav-link" style="color:var(--gold);">Appointments</a>
+      </li>
+    </ul>
+    <button class="nav-search" aria-label="Search">&#9906;</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO SLIDER -->
+<section id="hero">
+  <!-- Slide 1 -->
+  <div class="slide active" id="slide-0">
+    <div class="slide-bg slide-bg-1">
+      <!-- SVG Watch Silhouette -->
+      <svg class="slide-watch" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" style="position:absolute;right:8%;top:50%;transform:translateY(-50%);opacity:0.13;width:420px;">
+        <ellipse cx="200" cy="250" rx="140" ry="160" fill="none" stroke="white" stroke-width="1"/>
+        <ellipse cx="200" cy="250" rx="120" ry="140" fill="none" stroke="white" stroke-width="0.5"/>
+        <circle cx="200" cy="250" r="100" fill="none" stroke="white" stroke-width="1.5"/>
+        <circle cx="200" cy="250" r="80" fill="none" stroke="white" stroke-width="0.5"/>
+        <line x1="200" y1="170" x2="200" y2="190" stroke="white" stroke-width="2"/>
+        <line x1="200" y1="310" x2="200" y2="330" stroke="white" stroke-width="2"/>
+        <line x1="120" y1="250" x2="140" y2="250" stroke="white" stroke-width="2"/>
+        <line x1="260" y1="250" x2="280" y2="250" stroke="white" stroke-width="2"/>
+        <line x1="200" y1="250" x2="200" y2="195" stroke="white" stroke-width="2"/>
+        <line x1="200" y1="250" x2="235" y2="250" stroke="white" stroke-width="1.5"/>
+        <line x1="200" y1="250" x2="215" y2="220" stroke="white" stroke-width="1"/>
+        <circle cx="200" cy="250" r="4" fill="white"/>
+        <rect x="155" y="90" width="90" height="30" rx="6" fill="none" stroke="white" stroke-width="1"/>
+        <rect x="155" y="380" width="90" height="30" rx="6" fill="none" stroke="white" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="slide-content">
+      <p class="slide-eyebrow">New Models 2026</p>
+      <h1 class="slide-title">Watches &amp; Wonders<br><em>Unveiled</em></h1>
+      <p class="slide-body">Our latest creations unveiled at Watches and Wonders 2026. A new chapter of design and craftsmanship, where innovation meets timeless elegance.</p>
+      <a href="#collections" class="slide-btn gold">Discover More</a>
+    </div>
+  </div>
+  <!-- Slide 2 -->
+  <div class="slide" id="slide-1">
+    <div class="slide-bg slide-bg-2">
+      <svg style="position:absolute;right:8%;top:50%;transform:translateY(-50%);opacity:0.1;width:380px;" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+        <rect x="80" y="100" width="240" height="300" rx="30" fill="none" stroke="white" stroke-width="1.5"/>
+        <rect x="100" y="120" width="200" height="260" rx="24" fill="none" stroke="white" stroke-width="0.8"/>
+        <circle cx="200" cy="250" r="85" fill="none" stroke="white" stroke-width="1"/>
+        <line x1="200" y1="180" x2="200" y2="200" stroke="white" stroke-width="2"/>
+        <line x1="200" y1="250" x2="200" y2="200" stroke="white" stroke-width="2"/>
+        <line x1="200" y1="250" x2="240" y2="250" stroke="white" stroke-width="1.5"/>
+        <circle cx="200" cy="250" r="4" fill="white"/>
+        <rect x="165" y="75" width="70" height="25" rx="5" fill="none" stroke="white" stroke-width="1"/>
+        <rect x="165" y="400" width="70" height="25" rx="5" fill="none" stroke="white" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="slide-content">
+      <p class="slide-eyebrow">Rare Handcrafts Collection</p>
+      <h1 class="slide-title">Artisans<br>of <em>Time</em></h1>
+      <p class="slide-body">Patek Philippe is dedicated to preserving all the Rare Handcrafts used to decorate timepieces for more than four centuries.</p>
+      <a href="#" class="slide-btn">Discover More</a>
+    </div>
+  </div>
+  <!-- Slide 3 -->
+  <div class="slide" id="slide-2">
+    <div class="slide-bg slide-bg-3">
+      <svg style="position:absolute;right:8%;top:50%;transform:translateY(-50%);opacity:0.11;width:400px;" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="200" cy="250" rx="150" ry="150" fill="none" stroke="white" stroke-width="1.5"/>
+        <ellipse cx="200" cy="250" rx="130" ry="130" fill="none" stroke="white" stroke-width="0.6"/>
+        <ellipse cx="200" cy="250" rx="105" ry="105" fill="none" stroke="white" stroke-width="1"/>
+        <line x1="200" y1="145" x2="200" y2="165" stroke="white" stroke-width="3"/>
+        <line x1="200" y1="335" x2="200" y2="355" stroke="white" stroke-width="3"/>
+        <line x1="95" y1="250" x2="115" y2="250" stroke="white" stroke-width="3"/>
+        <line x1="285" y1="250" x2="305" y2="250" stroke="white" stroke-width="3"/>
+        <line x1="200" y1="250" x2="200" y2="175" stroke="white" stroke-width="2.5"/>
+        <line x1="200" y1="250" x2="255" y2="250" stroke="white" stroke-width="1.8"/>
+        <line x1="200" y1="250" x2="225" y2="215" stroke="white" stroke-width="1"/>
+        <circle cx="200" cy="250" r="5" fill="white"/>
+        <rect x="170" y="68" width="60" height="20" rx="4" fill="none" stroke="white" stroke-width="1"/>
+        <rect x="170" y="412" width="60" height="20" rx="4" fill="none" stroke="white" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="slide-content">
+      <p class="slide-eyebrow">Nautilus · 50th Anniversary</p>
+      <h1 class="slide-title">Crafting<br>a <em>Legacy</em></h1>
+      <p class="slide-body">50 years after its creation, the Nautilus epitomizes the elegant sports watch like no other, boasting an incredibly rich collection of models.</p>
+      <a href="#" class="slide-btn">Discover More</a>
+    </div>
+  </div>
+  <!-- Controls -->
+  <button class="slider-arrow prev" onclick="changeSlide(-1)">&#8592;</button>
+  <button class="slider-arrow next" onclick="changeSlide(1)">&#8594;</button>
+  <div class="slider-dots">
+    <button class="dot active" onclick="goSlide(0)"></button>
+    <button class="dot" onclick="goSlide(1)"></button>
+    <button class="dot" onclick="goSlide(2)"></button>
+  </div>
+</section>
+
+<!-- HEADLINE STRIP -->
+<div class="headline-strip reveal">
+  <div>
+    <div class="strip-label">The Power of Independence</div>
+    <div class="strip-title">The last family-owned Genevan manufacture</div>
+  </div>
+  <a href="#" class="strip-link">Our Values</a>
+</div>
+
+<!-- COLLECTIONS -->
+<section class="collections-section" id="collections">
+  <div class="collections-header reveal">
+    <span class="section-eyebrow">Manufacture Exclusive</span>
+    <h2 class="section-title">Our <em>Collections</em></h2>
+    <p style="font-size:0.92rem;color:var(--muted);margin-top:0.8rem;max-width:500px;margin-inline:auto">Over 150 references in regular production, manufactured in limited quantity.</p>
+  </div>
+  <div class="coll-grid">
+    <div class="coll-card reveal">
+      <div class="coll-watch"><div class="coll-watch-ring"></div></div>
+      <div class="coll-name">Grand Complications</div>
+      <div class="coll-sub">The pinnacle of watchmaking mastery</div>
+      <div class="coll-ref">Ref. 5270G · 6300G · 5178G</div>
+    </div>
+    <div class="coll-card reveal reveal-d1">
+      <div class="coll-watch" style="background:radial-gradient(ellipse at 35% 35%,#3a2a1a,#1a1008)"><div class="coll-watch-ring"></div></div>
+      <div class="coll-name">Calatrava</div>
+      <div class="coll-sub">The essence of classic watchmaking</div>
+      <div class="coll-ref">Ref. 5226G · 6119G · 5227R</div>
+    </div>
+    <div class="coll-card reveal reveal-d2">
+      <div class="coll-watch" style="background:radial-gradient(ellipse at 35% 35%,#1a2a3a,#0a1520)"><div class="coll-watch-ring"></div></div>
+      <div class="coll-name">Nautilus</div>
+      <div class="coll-sub">Iconic sports elegance since 1976</div>
+      <div class="coll-ref">Ref. 5726A · 5711R · 5726/1A</div>
+    </div>
+    <div class="coll-card reveal reveal-d3">
+      <div class="coll-watch" style="background:radial-gradient(ellipse at 35% 35%,#2a1a2a,#140a14)"><div class="coll-watch-ring"></div></div>
+      <div class="coll-name">Twenty~4</div>
+      <div class="coll-sub">Contemporary elegance for women</div>
+      <div class="coll-ref">Ref. 7300/1200A · 7300/1200R</div>
+    </div>
+    <div class="coll-card reveal">
+      <div class="coll-watch" style="background:radial-gradient(ellipse at 35% 35%,#1a2a1a,#0a140a)"><div class="coll-watch-ring"></div></div>
+      <div class="coll-name">Aquanaut</div>
+      <div class="coll-sub">Adventure-ready contemporary design</div>
+      <div class="coll-ref">Ref. 5168G · 5167A · 5164A</div>
+    </div>
+    <div class="coll-card reveal reveal-d1">
+      <div class="coll-watch" style="background:radial-gradient(ellipse at 35% 35%,#2a2a1a,#141408)"><div class="coll-watch-ring"></div></div>
+      <div class="coll-name">Golden Ellipse</div>
+      <div class="coll-sub">The golden ratio made timeless</div>
+      <div class="coll-ref">Ref. 3738/110G · 5738/50G</div>
+    </div>
+    <div class="coll-card reveal reveal-d2">
+      <div class="coll-watch" style="background:radial-gradient(ellipse at 35% 35%,#1a1a2a,#0a0a18)"><div class="coll-watch-ring"></div></div>
+      <div class="coll-name">Gondolo</div>
+      <div class="coll-sub">Art Deco influenced refinement</div>
+      <div class="coll-ref">Ref. 4972G · 5098P · 5098G</div>
+    </div>
+    <div class="coll-card reveal reveal-d3">
+      <div class="coll-watch" style="background:radial-gradient(ellipse at 35% 35%,#2a1a1a,#140808)"><div class="coll-watch-ring"></div></div>
+      <div class="coll-name">Rare Handcrafts</div>
+      <div class="coll-sub">Enamel, engraving &amp; marquetry</div>
+      <div class="coll-ref">Limited Editions</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL — MANUFACTURE -->
+<section class="editorial reveal">
+  <div class="editorial-img editorial-img-1"></div>
+  <div class="editorial-content">
+    <p class="edit-eyebrow">A Long-Term Vision</p>
+    <h2 class="edit-title">Innovation and<br><em>Tradition</em></h2>
+    <p class="edit-body">We have been pursuing traditional Genevan watchmaking artistry without interruption since 1839, safeguarding rare handcrafts such as enameling and <em>guillochage</em> that would have otherwise disappeared. At the same time, we nurture a tradition of innovation, relying on the latest technologies to further push the boundaries of watchmaking.</p>
+    <a href="#" class="edit-link">Advanced Research</a>
+    &nbsp;&nbsp;
+    <a href="#" class="edit-link" style="margin-left:1.5rem">Rare Handcrafts</a>
+  </div>
+</section>
+
+<!-- EDITORIAL — MUSEUM (dark) -->
+<section class="editorial dark reveal">
+  <div class="editorial-content">
+    <p class="edit-eyebrow">Preserving for the Future</p>
+    <h2 class="edit-title">The Patek Philippe<br><em>Museum</em></h2>
+    <p class="edit-body">Assembling one of the world's most extraordinary watch collections, our Museum showcases our legacy and represents an inexhaustible source of inspiration for our designers and artists.</p>
+    <a href="#" class="edit-link">The Museum</a>
+  </div>
+  <div class="editorial-img editorial-img-2"></div>
+</section>
+
+<!-- EDITORIAL — COLLECTIONS (light) -->
+<section class="editorial reveal">
+  <div class="editorial-img editorial-img-3"></div>
+  <div class="editorial-content" style="background:var(--white)">
+    <p class="edit-eyebrow">Haute Horlogerie</p>
+    <h2 class="edit-title">Our <em>Collections</em></h2>
+    <p class="edit-body">We have over 150 references in regular production, manufactured in limited quantity to ensure they respect the extremely high quality standards of the Patek Philippe Seal.</p>
+    <a href="#collections" class="edit-link">Discover our collections</a>
+  </div>
+</section>
+
+<!-- MANUFACTURE GRID -->
+<section style="padding:5rem 8%;background:var(--off-white)">
+  <div style="text-align:center;margin-bottom:3.5rem" class="reveal">
+    <span class="section-eyebrow">Savoir-Faire</span>
+    <h2 class="section-title">The Manufacture</h2>
+  </div>
+  <div class="manuf-grid">
+    <div class="manuf-card reveal">
+      <div class="manuf-icon">⚙</div>
+      <div class="manuf-label">State of the Art</div>
+      <div class="manuf-title">CNC Precision Machinery</div>
+      <p class="manuf-body">Spanning over 133,650 square meters, our ultra-modern production facility in Geneva features the most advanced CNC machinery for unparalleled precision.</p>
+      <a href="#" class="manuf-link">Learn More</a>
+    </div>
+    <div class="manuf-card reveal reveal-d1">
+      <div class="manuf-icon">◈</div>
+      <div class="manuf-label">Hand Finishing</div>
+      <div class="manuf-title">Artisanal Excellence</div>
+      <p class="manuf-body">All watch parts we produce are hand finished, not only for aesthetic purposes but also to increase the performance and durability of our timepieces.</p>
+      <a href="#" class="manuf-link">Learn More</a>
+    </div>
+    <div class="manuf-card reveal reveal-d2">
+      <div class="manuf-icon">◎</div>
+      <div class="manuf-label">Innovation</div>
+      <div class="manuf-title">Silinvar® Technology</div>
+      <p class="manuf-body">Our engineers work with Silinvar®, a silicon derivative with revolutionary watchmaking characteristics that Patek Philippe first pioneered for the industry.</p>
+      <a href="#" class="manuf-link">Advanced Research</a>
+    </div>
+    <div class="manuf-card reveal reveal-d3">
+      <div class="manuf-icon">✦</div>
+      <div class="manuf-label">Rare Handcrafts</div>
+      <div class="manuf-title">Miniature Painting on Enamel</div>
+      <p class="manuf-body">Our artisans perpetuate the timeless gestures and deftness of touch that have always distinguished Genevan watchmaking artistry through enamel miniature painting.</p>
+      <a href="#" class="manuf-link">Discover Handcrafts</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE STRIP -->
+<section class="service-strip reveal">
+  <div class="srv-item">
+    <span class="srv-num">01 — Our Commitment</span>
+    <div class="srv-title">Lifetime Service Pledge</div>
+    <p class="srv-body">At Patek Philippe, we pledge to service, repair, or restore any timepiece produced by our manufacture since 1839, regardless of its age.</p>
+    <a href="#" class="srv-link">Discover More</a>
+  </div>
+  <div class="srv-item reveal-d1">
+    <span class="srv-num">02 — Watch Care</span>
+    <div class="srv-title">Taking Care of Your Watch</div>
+    <p class="srv-body">Recommendations and instructions to ensure the optimal condition of your Patek Philippe timepiece for generations to come.</p>
+    <a href="#" class="srv-link">Care Recommendations</a>
+  </div>
+  <div class="srv-item reveal-d2">
+    <span class="srv-num">03 — Archives</span>
+    <div class="srv-title">Extract from the Archives</div>
+    <p class="srv-body">Request an official document attesting to the authenticity and historical details of your Patek Philippe timepiece from our archives.</p>
+    <a href="#" class="srv-link">Order an Extract</a>
+  </div>
+</section>
+
+<!-- POINTS OF SALE -->
+<section class="pos-section" id="pos">
+  <div class="pos-header reveal">
+    <div>
+      <span class="section-eyebrow">Worldwide Presence</span>
+      <h2 class="section-title">Points of Sale</h2>
+    </div>
+    <a href="#" class="strip-link">Find all stores</a>
+  </div>
+  <div class="pos-grid">
+    <div class="pos-card reveal">
+      <div class="pos-city">Geneva</div>
+      <div class="pos-country">Switzerland</div>
+      <span class="pos-type pos-flagship">Flagship Salon</span>
+    </div>
+    <div class="pos-card reveal reveal-d1">
+      <div class="pos-city">Paris</div>
+      <div class="pos-country">France</div>
+      <span class="pos-type">Authorized Retailer</span>
+    </div>
+    <div class="pos-card reveal reveal-d2">
+      <div class="pos-city">New York</div>
+      <div class="pos-country">United States</div>
+      <span class="pos-type">Authorized Retailer</span>
+    </div>
+    <div class="pos-card reveal">
+      <div class="pos-city">Dubai</div>
+      <div class="pos-country">United Arab Emirates</div>
+      <span class="pos-type">Authorized Retailer</span>
+    </div>
+    <div class="pos-card reveal reveal-d1">
+      <div class="pos-city">Tokyo</div>
+      <div class="pos-country">Japan</div>
+      <span class="pos-type">Authorized Retailer</span>
+    </div>
+    <div class="pos-card reveal reveal-d2">
+      <div class="pos-city">Beirut</div>
+      <div class="pos-country">Lebanon</div>
+      <span class="pos-type">Authorized Retailer</span>
+    </div>
+  </div>
+</section>
+
+<!-- APPOINTMENTS -->
+<section id="appointments">
+  <div class="appt-header reveal">
+    <span class="section-eyebrow">Private Consultation</span>
+    <h2 class="section-title">Book an <em>Appointment</em></h2>
+    <p>Visit any of our authorized points of sale for a private, expert consultation. Our specialists are on hand to guide you through our collections.</p>
+  </div>
+  <div class="appt-layout">
+    <div class="appt-left reveal">
+      <h3>Our Boutiques &amp; Maisons</h3>
+      <p>Each location offers a curated experience in an intimate setting. Our trained advisors provide guidance on purchase, care, and servicing of your timepiece.</p>
+      <ul class="appt-contact-list">
+        <li>
+          <div><div class="contact-city">Geneva, Switzerland</div><div class="contact-type contact-flagship">Flagship Salon</div></div>
+          <span style="font-size:0.7rem;color:var(--muted)">By appointment</span>
+        </li>
+        <li>
+          <div><div class="contact-city">Paris, France</div><div class="contact-type">Place Vendôme</div></div>
+          <span style="font-size:0.7rem;color:var(--muted)">By appointment</span>
+        </li>
+        <li>
+          <div><div class="contact-city">New York, USA</div><div class="contact-type">Fifth Avenue</div></div>
+          <span style="font-size:0.7rem;color:var(--muted)">By appointment</span>
+        </li>
+        <li>
+          <div><div class="contact-city">Dubai, UAE</div><div class="contact-type">DIFC</div></div>
+          <span style="font-size:0.7rem;color:var(--muted)">By appointment</span>
+        </li>
+        <li>
+          <div><div class="contact-city">Tokyo, Japan</div><div class="contact-type">Ginza District</div></div>
+          <span style="font-size:0.7rem;color:var(--muted)">By appointment</span>
+        </li>
+        <li>
+          <div><div class="contact-city">Beirut, Lebanon</div><div class="contact-type">Verdun</div></div>
+          <span style="font-size:0.7rem;color:var(--muted)">By appointment</span>
+        </li>
+      </ul>
+    </div>
+    <div class="reveal reveal-d2">
+      <div class="appt-form-wrap">
+        <div id="formBody">
+          <div class="form-section-title">Request a Private Viewing</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name *</label>
+              <input type="text" id="fname" placeholder="Jean-Paul"/>
+            </div>
+            <div class="form-group">
+              <label>Last Name *</label>
+              <input type="text" id="lname" placeholder="Marchand"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" id="femail" placeholder="jp.marchand@email.com"/>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="fphone" placeholder="+1 212 000 0000"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preferred Location *</label>
+              <select id="floc">
+                <option value="">Select boutique</option>
+                <option>Geneva — Flagship Salon</option>
+                <option>Paris — Place Vendôme</option>
+                <option>New York — Fifth Avenue</option>
+                <option>Dubai — DIFC</option>
+                <option>Tokyo — Ginza</option>
+                <option>Beirut — Verdun</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Preferred Date</label>
+              <input type="date" id="fdate"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Collection of Interest</label>
+            <select id="fcoll">
+              <option value="">Select a collection</option>
+              <option>Grand Complications</option>
+              <option>Calatrava</option>
+              <option>Nautilus</option>
+              <option>Aquanaut</option>
+              <option>Twenty~4</option>
+              <option>Gondolo</option>
+              <option>Golden Ellipse</option>
+              <option>Rare Handcrafts</option>
+              <option>I am open to expert guidance</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Special Requests or Questions</label>
+            <textarea id="fmsg" placeholder="Please let us know how we may best assist you…"></textarea>
+          </div>
+          <div class="form-checkbox">
+            <input type="checkbox" id="fConsent"/>
+            <label for="fConsent">I agree to be contacted by Patek Philippe or its authorized representatives regarding my appointment request, in accordance with the Privacy Notice.</label>
+          </div>
+          <button class="form-submit-btn" onclick="handleSubmit()">Submit Request</button>
+          <p class="form-note">A specialist will contact you within 24–48 hours to confirm your appointment.</p>
+        </div>
+        <div class="form-success" id="formDone">
+          <div class="success-check">✓</div>
+          <div class="success-title">Request Received</div>
+          <p class="success-body">Thank you for your interest in Patek Philippe. A specialist from your selected boutique will contact you within 24–48 hours to confirm your private appointment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div>
+      <div class="footer-brand-name">Patek Philippe</div>
+      <div class="footer-brand-tagline">Genève · Established 1839</div>
+      <p class="footer-brand-desc">You never actually own a Patek Philippe. You merely look after it for the next generation.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Manufacture</div>
+      <ul>
+        <li><a href="#">Our Values</a></li>
+        <li><a href="#">The Founders</a></li>
+        <li><a href="#">The Stern Family</a></li>
+        <li><a href="#">Advanced Research</a></li>
+        <li><a href="#">Rare Handcrafts</a></li>
+        <li><a href="#">Watch Art Exhibitions</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Collection</div>
+      <ul>
+        <li><a href="#">Grand Complications</a></li>
+        <li><a href="#">Calatrava</a></li>
+        <li><a href="#">Nautilus</a></li>
+        <li><a href="#">Aquanaut</a></li>
+        <li><a href="#">Twenty~4</a></li>
+        <li><a href="#">Pocket Watches</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Service</div>
+      <ul>
+        <li><a href="#">Our Commitment</a></li>
+        <li><a href="#">Service Centers</a></li>
+        <li><a href="#">Register Your Watch</a></li>
+        <li><a href="#">Archives Extract</a></li>
+        <li><a href="#">Report Theft</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Museum</a></li>
+        <li><a href="#appointments">Appointments</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2024 Patek Philippe SA, Geneva. All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="#">Privacy Notice</a>
+      <a href="#">Legal Notices</a>
+      <a href="#">Cookie Settings</a>
+      <a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// NAV HAMBURGER
+const hamburger = document.getElementById('hamburger');
+const mobileOverlay = document.getElementById('mobileOverlay');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileOverlay.classList.toggle('open');
+});
+
+// HERO SLIDER
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+let autoTimer;
+
+function goSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  currentSlide = (n + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+function changeSlide(dir) {
+  clearInterval(autoTimer);
+  goSlide(currentSlide + dir);
+  autoTimer = setInterval(() => goSlide(currentSlide + 1), 6000);
+}
+autoTimer = setInterval(() => goSlide(currentSlide + 1), 6000);
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// FORM
+function handleSubmit() {
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const email = document.getElementById('femail').value.trim();
+  const loc = document.getElementById('floc').value;
+  let ok = true;
+  [fname, lname, email, loc].forEach((v, i) => {
+    const ids = ['fname','lname','femail','floc'];
+    const el = document.getElementById(ids[i]);
+    if (!v) { el.style.borderColor = '#c0392b'; ok = false; }
+    else el.style.borderColor = '';
+  });
+  if (!ok) return;
+  document.getElementById('formBody').style.display = 'none';
+  document.getElementById('formDone').style.display = 'block';
+}
+</script>
+</body>
+</html>
